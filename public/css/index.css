@@ -1,0 +1,31 @@
+.main-wrapper{
+    height: 100vh;
+}
+.top-row{
+    height: 10%;
+}
+.header-image {
+    background-image: url("../images/header-image.png");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; 
+}
+/* Content area */
+.bottom-row{
+    height: 90%;
+    background-color: rgb(226, 226, 226);
+}
+.layout{
+    border-radius: 15px;
+    background-color: white;
+}
+
+.user-image {
+    border-radius: 50px;
+    width: 70px;
+}
+
+.user-margin{
+    margin-top: -86px;
+    padding-top: 18px;
+}
