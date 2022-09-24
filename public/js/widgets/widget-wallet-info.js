@@ -1,9 +1,16 @@
-const api = require("../api-helper");
+// Variables that  references to the HTML element ->
 
-// Each function must do the following:
-// 1. Clear the div 
+let amount = $("#walletAmount");
 
+//  > Functions
 
-function setData(address){
+// Set all data to correct data from the api -> 
+export function setData(address){
     console.log(address);
 }
+
+// refreshes all data from the per made div ->
+$("#refresh-data-btn").on("click", () => {
+    // let randomNumber = Math.random();
+    // amount.text(randomNumber);
+});

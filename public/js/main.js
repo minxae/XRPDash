@@ -1,5 +1,10 @@
-import { setAllData } from "./widgets"; 
+import * as widgets from "./widgets.js"; 
 
 $(function() {
-    setAllData("TEST");
+    widgets.setAllData("asdasd");
+});
+
+// Refresh handlers
+$(".refresh-all-content").on("click", function(){
+    widgets.setAllData("asdasd");
 });

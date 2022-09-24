@@ -1,9 +1,6 @@
-//const w_1 = require("../js/widgets/widget-wallet-info.js");
-
-// All widget routes ->
+import * as w_1 from "./widgets/widget-wallet-info.js"
 
 export function setAllData(address){
-    console.log(address);
+    w_1.setData(address);
+    
 }
-
-

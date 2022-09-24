@@ -13,7 +13,7 @@
 /* Content area */
 .bottom-row{
     height: 90%;
-    background-color: rgb(226, 226, 226);
+    background-color: #f7f7f7;
 }
 .layout{
     border-radius: 15px;
@@ -28,4 +28,16 @@
 .user-margin{
     margin-top: -86px;
     padding-top: 18px;
+}
+
+.address-card{
+    color: white;
+    padding: 17px;
+    border-radius: 8px;
+    background-color: #252a34;
+    box-shadow: -1px 31px 21px -31px black;
+}
+
+.text-end{
+    text-align: end !important;
 }
