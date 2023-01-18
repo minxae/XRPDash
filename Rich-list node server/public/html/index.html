@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title class="title">Richlist - Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
+</head>
+<body>
+    <div class="container-fluid main-wrapper">
+        <div class="row top-row header-image">
+            
+        </div>
+        <div class="row bottom-row">
+            <!-- User info and navigation menu -->
+            <div class="col-md-2">
+                <div class="row h-100 p-2">
+                    <div class="col menu-layout user-margin d-flex flex-column" align="center">
+                        <img class="p-3 mx-auto" width="150px" src="static/images/Ripple_logo.png">
+                        <img class="user-image p-2 mx-auto" src="static/images/testUser.jpg">
+                        <h6 class="text-muted">Welcome back,</h6>
+                        <h4>Bram Jansen</h4>
+                        <div>
+                            <ul class="p-0">
+                                <li>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="">Dashboard</a>
+                                       </div>
+                                        <div class="col text-end">
+                                            <i class="bi bi-arrow-right-short"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><div class="row">
+                                        <div class="col">
+                                            <a href="/ledger">Ledger</a>
+                                       </div>
+                                        <div class="col text-end">
+                                            <i class="bi bi-arrow-right-short"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><div class="row">
+                                        <div class="col">
+                                            <a href="/charts">Charts</a>
+                                       </div>
+                                        <div class="col text-end">
+                                            <i class="bi bi-arrow-right-short"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><div class="row">
+                                        <div class="col">
+                                            Contact
+                                       </div>
+                                        <div class="col text-end">
+                                            <i class="bi bi-arrow-right-short"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard content -->
+            <div class="col-md-10">
+                <div class="row h-100 p-2">
+                    <div class="col content-layout">
+                        <!-- All dashboard widgets -->
+                        <div class="row">
+                            <div class="col-md-6 p-3">
+                                <div class="address-card">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h4>XRP/EURO</h4>
+                                        </div>
+                                        <div class="col-sm-6 d-flex justify-content-end">
+                                            <button id="w_1" class="btn btn-primary">
+                                                <i class="bi bi-arrow-clockwise"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 id="walletAmount" class="display-4 text-center">589 XRP</h4>
+                                        </div>  
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p id="valuta" class="text-center lead">.  .  .</p>
+                                        </div>  
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h5  class="lead">Ledger index</h5>
+                                            <p class="text-muted">234256246</p>
+                                        </div>
+                                        
+                                        <div class="col-sm-6">
+                                            <h5  class="lead">Address</h5>
+                                            <p id="address" class="text-muted">ajubhu87bd7abd7b77vg</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 p-2">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5>Currency</h5>
+                                        <p class="text-muted">All currency holdings on this address.</p>
+                                    </div>
+                                </div>
+                                <div class="row currency-list">
+                                    <div class="col p-1 accent-currency-card">
+                                        <div class="p-2 h-100 currency-card">
+                                            <p class="display-4">BTC</p>
+                                            <p class="text-muted">Amount</p>
+                                            <p class="lead">0.230</p>
+                                        </div>
+                                    </div>
+                                    <div class="col p-1 accent-currency-card">
+                                        <div class="p-2 h-100 currency-card">
+                                            <p class="display-4">SOL</p>
+                                            <p class="text-muted">Amount</p>
+                                            <p class="lead">0.230</p>
+                                        </div>
+                                    </div>
+                                    <div class="col p-1 accent-currency-card">
+                                        <div class="p-2 h-100 currency-card">
+                                            <p class="display-4">USD</p>
+                                            <p class="text-muted">Amount</p>
+                                            <p class="lead">0.230</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Transactions</h4>
+                                <p  class="text-muted">
+                                    All transactions history from accoun. <i class="bi bi-arrow-down income">Incoming</i><i class="bi  bi-arrow-up expenses">Outgoing</i>
+                                </p>
+                                <div class="row text-center tx-indicator-spacing">
+                                    <div class="col-md-1">
+                                        <p class="tx-indicator-item"><i class="bi bi-arrow-down-up"></i></p>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <p class="tx-indicator-item"><i class="bi bi-capslock-fill"></i></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="tx-indicator-item"><i class="bi bi-bezier2"></i></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="tx-indicator-item"><i class="bi bi-calendar-week"></i></p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="tx-indicator-item"><i class="bi bi-arrow-left-right"></i></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="tx-indicator-item">Amount</p>
+                                    </div>
+                                </div>
+                                <div class="tx-container">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="static/js/main.js" type="module"></script>
+
+    <!-- Javascript files -->
+</body>
+</html>
