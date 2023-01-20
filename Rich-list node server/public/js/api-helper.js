@@ -32,6 +32,7 @@ export async function walletCheck(address){
         console.log(err);
     }
 }
+
 export async function getTxInfo(address){
 
     let url =  baseUrl + "/tx/" + address;
