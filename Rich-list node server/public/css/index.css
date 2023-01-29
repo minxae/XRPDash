@@ -1,3 +1,7 @@
+body {
+    background: #f7f7f7 !important;
+    font-family: 'Roboto',  sans-serif;
+}
 .main-wrapper{
     height: 100vh;
 }
@@ -29,6 +33,10 @@ li {
     border-radius: 5px;
 }
 li:hover {
+    background-color: #ff2e63;
+    color: white !important;
+}
+.active-menu  {
     background-color: #ff2e63;
     color: white !important;
 }

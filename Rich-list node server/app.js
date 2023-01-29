@@ -18,6 +18,7 @@ admin.initializeApp({
 const accountRouter = require("./routes/account-route");
 const ledgerRouter = require("./routes/ledger-route");
 const txRouter = require("./routes/tx-route");
+const adminRouter = require("./routes/admin-route")
 
 app.use(express.json());
 app.use('/static', express.static(path.join(__dirname, 'public')))
@@ -28,6 +29,7 @@ app.use(cookieParser())
 app.use("/account", accountRouter);
 app.use("/ledger",  ledgerRouter);
 app.use("/tx", txRouter);
+app.use("/admin",adminRouter)
 
 app.get("/dashboard", function(req, res){
     res.sendFile(path.join(__dirname, "/public/html/index.html"));
@@ -44,10 +46,7 @@ app.get("/contact", function(req, res){
 app.get("/login", function(req, res){
     res.sendFile(path.join(__dirname, "/public/html/login.html"));
 })
-app.get("/admin/login",function(req, res){
-    res.sendFile(path.join(__dirname, "/public/html/admin-login.html"))
-})
-app.get("/admin", middelware.isAdmin ,function(req, res){
+app.get("/admin" ,function(req, res){
     res.sendFile(path.join(__dirname, "/public/html/admin-dashboard.html"))
 })
 

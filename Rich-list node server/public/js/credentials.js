@@ -13,7 +13,7 @@ $(".searchAddress").on("click", async function(){
             $(".credentials").addClass("slide-out-top");
             sessionStorage.setItem("Address", walletAddress);
             setTimeout(function(){
-                window.location = "http://localhost:8080/dashboard"
+                window.location = "https://87b8-94-213-95-72.eu.ngrok.io/dashboard"
             }, 1000)
         } else {
             // show error message that users wallet address is invalid

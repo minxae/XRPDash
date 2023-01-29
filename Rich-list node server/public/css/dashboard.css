@@ -1,5 +1,6 @@
 .currency-list {
-    height: 200px;
+    width: 100%;
+    margin: 0;
 }
 .currency-card {
     background-color: #ffffff;
@@ -22,8 +23,37 @@
     background-color: #252a34;
     box-shadow: -1px 31px 21px -31px black; 
 }
+#w_1 {
+    background-color: #ff2e63 !important;
+    border:none;
+    transition: 1s;
+}
+#w_1:hover{
+    background: linear-gradient(84deg, #ff2e63, #08d9d6);
+    background-size: 400% 400%;
+    animation: tx-loader 2s cubic-bezier(0.4, 0, 1, 1) infinite;
+    border: none;
+}
+.card-items {
+    background: #303744;
+    border-radius: 39px;
+    font-weight: 600;
+    color: #bebebe;
+    font-size: 14px;
+    text-align: center;
+}
+.total-accounts {
+    color: #ff2e63;
+}
 
 /* Transaction-area */
+
+.transactions-col {
+    background: #ffffff;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    padding: 19px;
+}
 
 .tx-loader-item {
     height: 20px;
@@ -34,16 +64,25 @@
     animation: tx-loader 2s cubic-bezier(0.4, 0, 1, 1) infinite;
 }
 
+.background-fade-slow {
+    border-radius: 10px;
+    background: linear-gradient(84deg, #ff2e63, #08d9d6);
+    background-size: 400% 400%;
+    animation: tx-loader 10s cubic-bezier(0.4, 0, 1, 1) infinite;
+}
+
 .tx-container {
     padding: 10px;
     color: #252a34;
-    height: 450px;
+    /* height: 450px; */
     overflow: auto;
     border-radius: 7px;
 }
+
 .tx-container::-webkit-scrollbar  {
     display: none;
 }
+
 .tx-item {
     background-color: #ffffff;
     padding: 9px;
@@ -51,19 +90,24 @@
     border-radius: 6px;
     box-shadow: 2px 3px 10px -10px black;
     font-size: 13px;
-    border-left: 12px solid #252a34;
+    border: 1px solid #e5e5e5;
     transition: 0.3s;
     cursor: pointer;
     opacity: 1;
-    animation-name: fade-in;
-    animation-duration: 1.2s;
+    /* animation-name: fade-in;
+    animation-duration: 1.2s; */
 }
 
 .tx-item:hover {
-    background-color: #252a34;
-    color: white;
+    /* background-color: #252a34; */
+    color: white !important;
+    border-radius: 10px;
+    background: linear-gradient(84deg, #ff2e63, #08d9d6);
+    background-size: 400% 400%;
+    animation: tx-loader 8s cubic-bezier(0.4, 0, 1, 1) infinite;
     
 }
+
 .status{
     padding: 5px;
     border-radius: 35px;
@@ -73,14 +117,20 @@
 }
 
 .income {
-    color: green;
+    color: white;
+    padding: 3px;
+    border-radius: 50%;
     font-weight: 300;
     font-style: normal;
+    background: rgb(96, 224, 96);
 }
 .expenses {
-    color: red;;
+    color: white;
+    padding: 3px;
+    border-radius: 50%;
     font-weight: 300;
     font-style: normal;
+    background: rgb(238, 113, 113);
 }
 
 .tx-indicator-spacing {

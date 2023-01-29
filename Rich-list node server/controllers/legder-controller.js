@@ -4,34 +4,141 @@ const fs = require("fs");
 const path = require("path");
 const utils = require("../utils");
 
-let allAccounts;
-let accountsLoaded = false;
-let accountsReadByServer = false;
+const controller = new AbortController();
+const signal = controller.signal
 
-async function setup(req, res){
-    // update all data from the ledger
-    // all accounts should be in one array
-    res.send("Updating in progress. Call status end-point for updates")
-    xrpledger.loadXrpLedgerData();
-    accountsLoaded = true;
+let allAccounts;
+let setupCanceled;
+
+let setupStatus = {
+    status : {
+        t1_loadingAccount: false,
+        t2_writingAccount: false,
+        t3_done: false
+    }, 
+    progress: {
+        percentage: 0,
+        amountOfAccountsLoaded: 0
+    },
+    date : {
+        lastUpdated: "23133"
+    }
 }
 
-async function getRankByAccount(req, res){
+async function setup(req, res){
+    resetStatus()
+    // update all data from the ledger
+    // all accounts should be in one array
+    try {
+        res.send({
+            message : "Starting updating accounts...",
+            alertType : "success"
+        });
+        
+        setupStatus.status.t1_loadingAccount = true;
+        await xrpledger.loadXrpLedgerData({signal});
+
+        setupStatus.status.t2_writingAccount = true;
+        await readDataFromFile(path.join(__dirname, "../accounts/accounts.json"));
+
+        setupStatus.status.t3_done = true;
+        
+    }catch(e) {
+        if(e.name === "AbortError"){
+            setupCanceled = true;
+            res.send("Canceled setup");
+        }
+    }
+}
+
+async function cancelSetup(req, res){
+    if(setupStatus.status.t1_loadingAccount){
+        controller.abort();
+        res.send({
+            message : "Setup was canceled.",
+            progress  : xrpledger.getPercentage(),
+            alertType : "success"
+        });
+    }else {
+        res.send({
+            message : "The setup function is currently not running.",
+            alertType : "danger"
+        })
+    }
+    
+}
+
+// Websocket function 
+async function statusUpdate(req, res){
+    setupStatus.progress.percentage = xrpledger.getPercentage();
+    setupStatus.progress.amountOfAccountsLoaded = xrpledger.getLoadedAccounts();
+
+    setupStatus.date.lastUpdated = await getFileDate();
+
+    res.send(setupStatus)
+}
+
+function resetStatus(){
+    setupStatus.status.t1_loadingAccount = false;
+    setupStatus.status.t2_writingAccount = false;
+    setupStatus.progress.percentage = 0;
+    setupStatus.progress.amountOfAccountsLoaded = 0;
+}
+
+async function getFileDate(){
+    let stats = await fs.promises.stat(path.join(__dirname, "../accounts/accounts.json"));
+    return stats.ctime
+}
+
+async function getRankInfoByAccount(req, res){
     let address = req.params.address;
 
-    if (allAccounts.length > 0){
+    if (allAccounts && allAccounts.length > 0){
         // get rank from accounts array
-        res.send({Rank: calculateRank(address)}) 
+        res.send({
+            rank_data: {
+                curRank: calculateRank(address),
+                AmountOfAccounts: allAccounts.length,
+                topPercentage: calculateTopPercentages(address)
+            }
+        }) 
     } else {
         res.status(400).send({
             message: "Can't determine rank at this point, try again later",
             error: true
         });
+    }   
+}
+
+function calculateTopPercentages(address){
+    let percentages = [0.1, 1, 5, 10, 40]
+    for(i in percentages){
+        let percentage = percentages[i];
+        if(balanceExistsInPercentage(percentage, findAccountBalanceByAddress(address))){
+            return percentage
+        }
     }
-    
+    return "Beneath the " + percentages[percentages.length - 1] + "%"
+}
+
+function balanceExistsInPercentage(percentage, account){
+    let percentagePos = Math.round((allAccounts.length / 100) * percentage);
+    let percentageThreshold = allAccounts[percentagePos]
+    if(account.Balance >= percentageThreshold["Balance"]){
+        return true
+    }
+}
+
+function findAccountBalanceByAddress(address){
+    for(i in allAccounts){
+        if(allAccounts[i]["Account"] == address){
+            return allAccounts[i]["Balance"]
+        }
+    }
 }
 
 function calculateRank(address){
+    
     allAccounts.sort(utils.sortByNumeric)
     for(i in allAccounts){
         if(allAccounts[i].Account == address){
@@ -52,7 +159,7 @@ function getTotalAccountsOnLedger(req, res){
     }
 }
 
-function readDataFromFile(filePath){
+async function readDataFromFile(filePath){
     try {
         fs.readFile(filePath, "utf8", function(err, data){
             if(err){
@@ -76,28 +183,33 @@ function readDataFromFile(filePath){
     }
 }
 
-function statusUpdate(req, res){
+function statusUpdate_1(req, res){
     if(accountsLoaded && accountsReadByServer){
         res.status(200).send({
-            messsage: "Accounts are loaded and read by server and ready to be distributed to users",
+            message: "Accounts are loaded and read by server and ready to be distributed to users",
             status : true,
             accountsLoaded: allAccounts.length
         })
+    }else if(startedLoading) {
+        res.status(400).send({
+            message: "Reading accounts from the XRP ledger...",
+            loading : true
+        });
     }else {
         res.status(400).send({
-            messsage: "Accounts are not loaded and read by the server yet, users can not get there rank yet.",
+            message: "Accounts are not loaded and read by the server yet, users can not get there rank yet.",
             status : false
         });
     }
 }
-
+ 
 // Function that start at the start-up ->
-//readDataFromFile(path.join(__dirname, "../accounts/accounts.json"));
-
+readDataFromFile(path.join(__dirname, "../accounts/accounts.json"));
 
 module.exports = {
     setup,
     statusUpdate,
-    getRankByAccount,
-    getTotalAccountsOnLedger
+    getRankInfoByAccount,
+    getTotalAccountsOnLedger,
+    cancelSetup
 };

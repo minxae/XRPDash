@@ -1,4 +1,4 @@
-let baseUrl = "http://localhost:8080";
+let baseUrl = "https://87b8-94-213-95-72.eu.ngrok.io";
 
 // Gets address info about the current walllet address ->
 export async function getAddressInfo(address){
@@ -67,7 +67,7 @@ export async function getCurrencies(address){
 }
 
 export async function getRank(address){
-    let url =  baseUrl + "/ledger/getRank/" + address;
+    let url =  baseUrl + "/ledger/rankInfo/" + address;
 
     try {
         let response = await fetch(url);

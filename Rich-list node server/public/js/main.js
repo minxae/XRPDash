@@ -25,3 +25,10 @@ $("#w_1").on("click", async function(){
     }
      // Set all dashboard data @param : wallet address out of the session or cookie ->
 });
+
+$(".logout").on("click", function(){
+    if(address){
+        sessionStorage.setItem("Address", "")
+        utils.redirectToPage("login")
+    }
+})

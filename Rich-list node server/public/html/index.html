@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="stylesheet" href="/static/css/dashboard.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
     <title class="title">Richlist - Dashboard</title>
     <link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
 </head>
@@ -28,7 +33,7 @@
                         <h4>Bram Jansen</h4>
                         <div>
                             <ul class="p-0">
-                                <li>
+                                <li class="active-menu">
                                     <div class="row">
                                         <div class="col">
                                             <a href="">Dashboard</a>
@@ -38,7 +43,8 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><div class="row">
+                                <li>
+                                    <div class="row">
                                         <div class="col">
                                             <a href="/ledger">Ledger</a>
                                        </div>
@@ -47,7 +53,8 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><div class="row">
+                                <li>
+                                    <div class="row">
                                         <div class="col">
                                             <a href="/charts">Charts</a>
                                        </div>
@@ -56,12 +63,23 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><div class="row">
+                                <li>
+                                    <div class="row">
                                         <div class="col">
                                             Contact
                                        </div>
                                         <div class="col text-end">
                                             <i class="bi bi-arrow-right-short"></i>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row logout">
+                                        <div class="col">
+                                            Log out
+                                       </div>
+                                        <div class="col text-end">
+                                            <i class="bi bi-box-arrow-right"></i>
                                         </div>
                                     </div>
                                 </li>
@@ -82,7 +100,7 @@
                                 <div class="address-card">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <h4>XRP/EURO</h4>
+                                            <h4>Rank</h4>
                                         </div>
                                         <div class="col-sm-6 d-flex justify-content-end">
                                             <button id="w_1" class="btn btn-primary">
@@ -92,23 +110,30 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h4 id="walletAmount" class="display-4 text-center">589 XRP</h4>
+                                            <h4 id="walletAmount" class="display-4 text-center">-</h4>
                                         </div>  
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <p id="valuta" class="text-center lead">.  .  .</p>
+                                            <p id="valuta" class="text-center">.  .  .</p>
                                         </div>  
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <h5  class="lead">Ledger index</h5>
-                                            <p class="text-muted">234256246</p>
+                                        <div class="col text-center">
+                                            <p class="card-items">Icon</p>
+                                            <p class="text-muted rankEmblem">223</p>
                                         </div>
-                                        
-                                        <div class="col-sm-6">
-                                            <h5  class="lead">Address</h5>
-                                            <p id="address" class="text-muted">ajubhu87bd7abd7b77vg</p>
+                                        <div class="col text-center">
+                                            <p class="card-items">Address</p>
+                                            <p id="address" class="text-muted">34</p>
+                                        </div>
+                                        <div class="col text-center">
+                                            <p class="card-items">XRP</p>
+                                            <p id="XRP" class="text-muted">34</p>
+                                        </div>
+                                        <div class="col text-center">
+                                            <p class="card-items">Top</p>
+                                            <p id="percentage" class="text-muted">34</p>
                                         </div>
                                     </div>
                                 </div>
@@ -116,30 +141,30 @@
                             <div class="col-md-6 p-2">
                                 <div class="row">
                                     <div class="col">
-                                        <h5>Currency</h5>
-                                        <p class="text-muted">All currency holdings on this address.</p>
+                                        <h4 class="">Currency</h4>
+                                        <p class="text-muted">Recieved currencies. Excluding <b>XRP</b></p>
                                     </div>
                                 </div>
                                 <div class="row currency-list">
                                     <div class="col p-1 accent-currency-card">
-                                        <div class="p-2 h-100 currency-card">
-                                            <p class="display-4">BTC</p>
-                                            <p class="text-muted">Amount</p>
-                                            <p class="lead">0.230</p>
+                                        <div class="p-2 h-100 currency-card tx-loader-item">
+                                            <p class="display-4 ">BTC</p>
+                                            <p class="text-muted ">Amount</p>
+                                            <p class="lead ">0.230</p>
                                         </div>
                                     </div>
                                     <div class="col p-1 accent-currency-card">
-                                        <div class="p-2 h-100 currency-card">
-                                            <p class="display-4">SOL</p>
-                                            <p class="text-muted">Amount</p>
-                                            <p class="lead">0.230</p>
+                                        <div class="p-2 h-100 currency-card tx-loader-item">
+                                            <p class="display-4 ">SOL</p>
+                                            <p class="text-muted ">Amount</p>
+                                            <p class="lead ">0.230</p>
                                         </div>
                                     </div>
                                     <div class="col p-1 accent-currency-card">
-                                        <div class="p-2 h-100 currency-card">
-                                            <p class="display-4">USD</p>
-                                            <p class="text-muted">Amount</p>
-                                            <p class="lead">0.230</p>
+                                        <div class="p-2 h-100 currency-card tx-loader-item">
+                                            <p class="display-4 ">USD</p>
+                                            <p class="text-muted ">Amount</p>
+                                            <p class="lead ">0.230</p>
                                         </div>
                                     </div>
                                     
@@ -147,10 +172,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <h4>Transactions</h4>
+                            <div class="col-md-12 transactions-col">
+                                <h4 class="">Recent transactions</h4>
                                 <p  class="text-muted">
-                                    All transactions history from accoun. <i class="bi bi-arrow-down income">Incoming</i><i class="bi  bi-arrow-up expenses">Outgoing</i>
+                                    All recent transaction from this account. <i class="bi bi-arrow-down income"></i>Incoming <i class="bi  bi-arrow-up expenses"></i>Outgoing
                                 </p>
                                 <div class="row text-center tx-indicator-spacing">
                                     <div class="col-md-1">

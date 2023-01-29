@@ -83,8 +83,7 @@ function createTxItem (txData) {
                         </div>
                     </div>
                     <div class="col-md-3 p-2 text-center">
-                        <h5 class="lead">Amount</h5>
-                        <p class="lead font-weight-bold m-0">${amount}</p>
+                        <h5 class=" font-weight-bold m-0 ">${amount}</h5>
                     </div>
                 </div>`
     // append here ->

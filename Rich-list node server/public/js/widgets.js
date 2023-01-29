@@ -6,4 +6,5 @@ import * as w_3 from  "./widgets/widget-holdings-info.js"
 export function setAllData(address){
     w_1.setData(address);
     w_2.setData(address);
+    w_3.setData(address);
 }

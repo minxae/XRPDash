@@ -2,15 +2,18 @@ const admin = require("firebase-admin");
 const home = "localhost:8080/login"; 
 
 async function isAdmin(req, res, next) {
-    console.log(req.cookies["token"])
     if(req.cookies["token"]){
         let userToken =  req.cookies["token"];
-        let user = await admin.auth().verifyIdToken(userToken)
-        console.log(user.uid)
-        let role = await getRole(user.uid)
-        if(role == "ADMIN"){
-            next()
-        }else {
+
+        try {
+            let user = await admin.auth().verifyIdToken(userToken)
+            let role = await getRole(user.uid)
+            if(role == "ADMIN"){
+                next()
+            }else {
+                res.redirect("/login")
+            }
+        } catch (e) {
             res.redirect("/login")
         }
 

@@ -7,63 +7,76 @@ const rippleBinary = require("ripple-binary-codec");
 
 const baseUrl = "https://s2.ripple.com:51234/";
 
+let percentage;
+let loadedAccounts;
+
 // THIS PROCESS WILL TAKE A LONG TIME DONT CALL THIS FUNCTION AT ANY MOMENT!!! ->
-const loadXrpLedgerData = async () => {
-    let totalAccountsOnLedger = 4000000;
+const loadXrpLedgerData = async ({signal}) => {
+    let totalAccountsOnLedger = 4300000;
     let ALLACCOUNTS = [];
-    try {
-        let marker;
-        let data = {
-            "method": "ledger_data",
-            "params": [
-                {
-                    "ledger_index": "current",
-                    "type": "account",
-                    "binary": true
-                }
-            ]
-        }
-        
-        do {
-            let response = await axios.post(baseUrl, data);
 
-            let accountArray = response.data.result.state;
-            for(i in accountArray){
-                let data = rippleBinary.decode(accountArray[i].data);
-                let account = data.Account;
-                let balance = data.Balance;
-                
-                ALLACCOUNTS.push({
-                    Account : account,
-                    Balance : balance
-                });
+    let marker;
+    let data = {
+        "method": "ledger_data",
+        "params": [
+            {
+                "ledger_index": "current",
+                "type": "account",
+                "binary": true
             }
+        ]
+    }
+    
+    do {
+        let response = await axios.post(baseUrl, data, {signal});
 
-            marker = response.data["result"]["marker"]; //set marker to new marker
-            data.params[0].marker = marker; // set marker in data object for next call
+        let accountArray = response.data.result.state;
+        for(i in accountArray){
+            let data = rippleBinary.decode(accountArray[i].data);
+            let account = data.Account;
+            let balance = data.Balance;
             
-            console.log(Math.round((ALLACCOUNTS.length * 100) / totalAccountsOnLedger) + "% -> " + ALLACCOUNTS.length);
-
-        } while(marker)
-
-        //sort array by balance
-        console.log("Sorting array")
-        ALLACCOUNTS.sort(utils.sortByNumeric);   
-
-        //Write data to accounts.json file
-        console.log("Writing data to file....")
-        try {
-            writeArrayToFile(ALLACCOUNTS);
-        } catch(err) {
-            console.log(err);
+            ALLACCOUNTS.push({
+                Account : account,
+                Balance : balance
+            });
         }
 
-        console.log("done");
+        marker = response.data["result"]["marker"]; //set marker to new marker
+        data.params[0].marker = marker; // set marker in data object for next call
+        
+        percentage = Math.round((ALLACCOUNTS.length * 100) / totalAccountsOnLedger);
+        loadedAccounts = ALLACCOUNTS.length
 
-    }catch(e){
-        console.log(e);
-    } 
-} 
+    } while(marker)
+
+    //sort array by balance
+    console.log("Sorting array")
+    ALLACCOUNTS.sort(utils.sortByNumeric); 
+
+    //Write data to accounts.json file
+    console.log("Writing data to file....")
+    try {
+        writeArrayToFile(ALLACCOUNTS);
+    } catch(err) {
+        console.log(err);
+    }
+
+    console.log("done");
+}
+
+function getPercentage(){
+    return percentage;
+}
+
+function getLoadedAccounts(){
+    return loadedAccounts;
+}
+
+function cancelSetup() {
+    console.log("ABORTING")
+    controller.abort();
+}
 
 async function fileHasData(filePath){
     try {
@@ -275,6 +288,9 @@ module.exports = {
     loadXrpLedgerData,
     getAccountInformation,
     getTxInformation,
-    getCurrencies
+    getCurrencies,
+    cancelSetup,
+    getLoadedAccounts,
+    getPercentage
 };
 
