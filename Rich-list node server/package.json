@@ -19,6 +19,7 @@
     "mongodb": "^4.9.1",
     "node-fetch": "^3.2.10",
     "nodemon": "^2.0.20",
-    "ripple-binary-codec": "^1.5.0-beta.1"
+    "ripple-binary-codec": "^1.5.0-beta.1",
+    "ws": "^8.12.0"
   }
 }

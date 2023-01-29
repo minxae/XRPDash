@@ -7,8 +7,8 @@ const rippleBinary = require("ripple-binary-codec");
 
 const baseUrl = "https://s2.ripple.com:51234/";
 
-let percentage;
-let loadedAccounts;
+let percentage = 0;
+let loadedAccounts = 0;
 
 // THIS PROCESS WILL TAKE A LONG TIME DONT CALL THIS FUNCTION AT ANY MOMENT!!! ->
 const loadXrpLedgerData = async ({signal}) => {
@@ -71,6 +71,14 @@ function getPercentage(){
 
 function getLoadedAccounts(){
     return loadedAccounts;
+}
+
+function setPercentage(amount){
+    percentage = amount
+}
+
+function setLoadedAccounts(amount){
+    loadedAccounts = amount
 }
 
 function cancelSetup() {
@@ -291,6 +299,8 @@ module.exports = {
     getCurrencies,
     cancelSetup,
     getLoadedAccounts,
-    getPercentage
+    getPercentage,
+    setPercentage,
+    setLoadedAccounts
 };
 

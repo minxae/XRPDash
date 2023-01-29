@@ -54,6 +54,7 @@ async function setup(req, res){
 async function cancelSetup(req, res){
     if(setupStatus.status.t1_loadingAccount){
         controller.abort();
+        resetStatus();
         res.send({
             message : "Setup was canceled.",
             progress  : xrpledger.getPercentage(),
@@ -69,13 +70,13 @@ async function cancelSetup(req, res){
 }
 
 // Websocket function 
-async function statusUpdate(req, res){
+async function statusUpdate(){
     setupStatus.progress.percentage = xrpledger.getPercentage();
     setupStatus.progress.amountOfAccountsLoaded = xrpledger.getLoadedAccounts();
 
     setupStatus.date.lastUpdated = await getFileDate();
 
-    res.send(setupStatus)
+    return setupStatus;
 }
 
 function resetStatus(){
@@ -83,6 +84,8 @@ function resetStatus(){
     setupStatus.status.t2_writingAccount = false;
     setupStatus.progress.percentage = 0;
     setupStatus.progress.amountOfAccountsLoaded = 0;
+    xrpledger.setPercentage(0);
+    xrpledger.setLoadedAccounts(0);
 }
 
 async function getFileDate(){
@@ -204,7 +207,7 @@ function statusUpdate_1(req, res){
 }
  
 // Function that start at the start-up ->
-readDataFromFile(path.join(__dirname, "../accounts/accounts.json"));
+//readDataFromFile(path.join(__dirname, "../accounts/accounts.json"));
 
 module.exports = {
     setup,

@@ -29,16 +29,54 @@
                             </div>
                         </div>
                     </div>
-                    <div  class="row w-100 m-1">
+                    <div  class="row w-100 m-0">
                         <div class="card text-center w-100">
                             <div class="card-header">
-                              Current status <i class="bi bi-circle-fill" style="color: green;"></i>
+                                Status <i id="status-live-indicator" class="bi bi-circle-fill default-grey"></i>
                             </div>
                             <div class="card-body">
-                              <h5 class="card-title">Special title treatment</h5>
-                              <p class="card-text pb-1">With supporting text below as a natural lead-in to additional content.</p>
+                              <h5 class="card-title">Syncing accounts with server</h5>
+                              <p class="card-text pb-1">The current setup can be canceled at any moment with the <b>cancel</b> button below.</p>
                               <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">40%</div>
+                                <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="20%" aria-valuemin="0" aria-valuemax="4300000">0%</div>
+                              </div>
+                              <div class="row w-100 m-0">
+                                <div class="col">
+                                    <ul class="list-group p-2">
+                                        <h5>Status</h5>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Started loading accounts
+                                            <span class="">
+                                                <i id="status-started" class="bi bi-check-circle-fill default-grey"></i>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Writing accounts file
+                                            <span class="">
+                                                <i id="status-started-writing" class="bi bi-check-circle-fill default-grey"></i>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Finished
+                                            <span class="">
+                                                <i id="status-done" class="bi bi-check-circle-fill default-grey"></i>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <ul class="list-group p-2">
+                                        <h5>Progress</h5>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          Loaded accounts
+                                          <span id="amount-accounts" class="badge badge-primary badge-pill">0</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                          Percentage loaded
+                                          <span id="accounts-percentage" class="badge badge-primary badge-pill">0%</span>
+                                        </li>
+                                    </ul>
+                                </div>
                               </div>
                             </div>
                             <div class="card-footer text-muted">
@@ -51,82 +89,125 @@
                     <div class="row w-100 m-0">
                         <div class="col card m-1" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Setup <i class="bi bi-exclamation-octagon mb-1" style="color: red;"></i></h5>
+                              <h5 class="card-title">Setup <i class="bi bi-exclamation-square-fill" style="color: red;"></i></h5>
                               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                              <a href="#" class="btn btn-primary">Start</a>
+                              <button id="setupBtn" class="btn btn-primary">Start</button>
                             </div>
                         </div>
                         <div class="col m-1 card" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Cancel <i class="bi bi-x-octagon mb-1" style="color: rgb(255, 201, 100);"></i></h5>
+                              <h5 class="card-title">Cancel <i class="bi bi-exclamation-square-fill" style="color: rgb(255, 201, 100);"></i></h5>
                               <p class="card-text">This function will cancel the current setup function. Start the setup again before you cancel it again.</p>
-                              <button class="btn btn-primary cancelSetupBtn">Cancel</button>
+                              <button id="cancelBtn" class="btn btn-primary">Cancel</button>
                             </div>
                         </div>
                     </div>
                     <div class="row w-100 m-0">
                         <div class="col m-1 card" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <h5 class="card-title">Create user</h5>
+                              <p class="card-text">This function will cancel the current setup function. Start the setup again before you cancel it again.</p>
                               <a href="#" class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
                         <div class="col m-1 card" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Card title</h5>
-                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <h5 class="card-title">Create admin</h5>
+                              <p class="card-text">This function will cancel the current setup function. Start the setup again before you cancel it again.</p>
                               <a href="#" class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
                     </div>
-                    <div class="modal" id="Modal1" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title">Modal title</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
+                    <h5 class="pt-2">Website functions</h5>
+                    <hr/>
+                    <div class="row w-100 m-0">
+                        <div class="col card m-1" style="width: 18rem;">
+                            <div class="card-body">
+                              <h5 class="card-title">Go to website </h5>
+                              <p class="card-text">Navigate to the <b style="color: #007bff;">main website</b>. This route will bring you to the dashboard page.</p>
+                              <a href="/dashboard" id="navLoginBtn" class="btn btn-primary">Go</a>
                             </div>
-                            <div class="modal-body">
-                              <p>Modal body text goes here.</p>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-primary">Save changes</button>
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                          </div>
                         </div>
-                      </div>
-                    
-                    
-                    <h3 class="p-2">Welcome</h3>
-                    <p class="text-muted">The day today is: 21-1-2023</p>
-                    <p>With the buttons down below you can update all the accounts on the server and check the progress of the server update.</p>
-                    <div class="update">
-                        <div class="loader"></div>
-                        <h5 class="loader-info text-center">Updating accounts please wait....</h5>
-                        <!-- <p class="loader-time text-center text-muted">Time elapsed: 03:25</p> -->
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-md p-2">
-                            <button class="btn w-100 btn-primary updateBtn">Update accounts</button>
-                            
-                        </div>
-                        <div class="col-md p-2">
-                            <button class="btn w-100 btn-primary statusBtn">Status</button>
+                        <div class="col m-1 card" style="width: 18rem;">
+                            <div class="card-body">
+                              <h5 class="card-title">User login </h5>
+                              <p class="card-text">Navigate to the <b style="color: #007bff;">user login</b>. This route will bring you to the user login page.</p>
+                              <a href="/login" id="navUserLoginBtn" class="btn btn-primary">Go</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="alert alert-danger" role="alert">
-                                
+                    <div class="row w-100 m-0">
+                        <div class="col m-1 card" style="width: 18rem;">
+                            <div class="card-body">
+                              <h5 class="card-title">Admin login </h5>
+                              <p class="card-text">Navigate to the <b style="color: #007bff;">admin login</b>. This route will bring you to the admin login page.</p>
+                              <a href="/admin/login" id="navAdminLogin" class="btn btn-primary">Go</a>
+                            </div>
+                        </div>
+                        <div class="col card m-1" style="width: 18rem;">
+                            <div class="card-body">
+                              <h5 class="card-title">Log out <i class="bi bi-box-arrow-right" style="color: #ffc107;"></i></h5>
+                              <p class="card-text">I dont know... you just logout? </p>
+                              <button id="navLogout" class="btn btn-warning">Log out</button>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-muted"> NOTE: This action will take up to 30 minutes!</p>
                 </div>
                 <div class="col-md-2"></div>
             </div>
+            
+            <!-- Modals -->
+            <div class="modal fade" id="setupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Start setup</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        <p>
+                            Are you sure you want to <b>sync</b> all accounts on the server with all the accounts from the XRP ledger?
+                            <br>
+                            <br>
+                            <b>Please be aware that this process will take a long time before it completes! <i class="bi bi-exclamation-octagon mb-1" style="color: red;"></i></b>
+                        </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="setupContinue" class="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Cancel setup</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Are you sure you want to <b>cancel</b> the current setup?
+                                <br>
+                                <br>
+                                <b>Please be aware that by canceling the setup all progress in <b>will</b> be lost. 
+                                <i class="bi bi-exclamation-octagon mb-1" style="color: red;"></i></b>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="cancelContinue" class="btn btn-primary">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
+
         <!-- Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
