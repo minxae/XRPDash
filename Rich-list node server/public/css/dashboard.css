@@ -86,9 +86,9 @@
 .tx-item {
     background-color: #ffffff;
     padding: 9px;
-    margin: 10px;
+    margin: 5px;
     border-radius: 6px;
-    box-shadow: 2px 3px 10px -10px black;
+    /* box-shadow: 2px 3px 10px -10px black; */
     font-size: 13px;
     border: 1px solid #e5e5e5;
     transition: 0.3s;
@@ -99,16 +99,16 @@
 }
 
 .tx-item:hover {
-    /* background-color: #252a34; */
+    background-color: #252a34;
     color: white !important;
     border-radius: 10px;
-    background: linear-gradient(84deg, #ff2e63, #08d9d6);
+    /* background: linear-gradient(84deg, #ff2e63, #08d9d6);
     background-size: 400% 400%;
-    animation: tx-loader 8s cubic-bezier(0.4, 0, 1, 1) infinite;
+    animation: tx-loader 8s cubic-bezier(0.4, 0, 1, 1) infinite; */
     
 }
 
-.status{
+.status {
     padding: 5px;
     border-radius: 35px;
     background: #4caf50;
@@ -117,20 +117,10 @@
 }
 
 .income {
-    color: white;
-    padding: 3px;
-    border-radius: 50%;
-    font-weight: 300;
-    font-style: normal;
-    background: rgb(96, 224, 96);
+    color: rgb(98 210 167);
 }
 .expenses {
-    color: white;
-    padding: 3px;
-    border-radius: 50%;
-    font-weight: 300;
-    font-style: normal;
-    background: rgb(238, 113, 113);
+    color: rgb(242 137 137);
 }
 
 .tx-indicator-spacing {
@@ -140,6 +130,14 @@
 
 .tx-indicator-item {
 
+}
+
+.tx-modal-item {
+    align-items: center;
+    border-bottom: 1px solid #e3e3e3;
+    background: #ffffff;
+    /* border-radius: 5px; */
+    padding: 9px;
 }
 
 

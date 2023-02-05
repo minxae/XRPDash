@@ -1,4 +1,4 @@
-let baseUrl = "https://87b8-94-213-95-72.eu.ngrok.io";
+let baseUrl = "http://localhost:8080";
 
 // Gets address info about the current walllet address ->
 export async function getAddressInfo(address){

@@ -66,5 +66,8 @@ wss.on("connection", async function connection(ws){
     },1000)
 })
 
+//loading accounts into array from json file ->
+xrpLedger.readDataFromFile(path.join(__dirname, "./accounts/accounts.json"));
+
 server.listen(PORT, () => console.log("SERVER RUNNING"));
 

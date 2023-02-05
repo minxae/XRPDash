@@ -50,16 +50,16 @@ function createTxItem (txData) {
         amount = Math.round(parseInt(amount) / 1000000);
     }
 
-    let txItem = `<div class="row tx-item align-items-center">
+    let txItem = $(`<div class="row tx-item align-items-center">
                     <div class="col-md-1">
-                        <span><h5 class="lead">${checkIfIncomeOrExpenses(txData)}</i></h5></span>
+                        <span><h5 class="lead"><i class="${checkIfIncomeOrExpenses(txData)}"></i></h5></span>
                     </div>
                     <div class="col-md-1">
                         <span><h5 class=""> ${currency}</h5></span>
                     </div>
                     <div class="col-md-3 text-center p-2">
                         <div class="row">
-                            <div class="col">
+                            <div class="col text-break">
                                 ${txData.Account}
                             </div>
                         </div>
@@ -69,13 +69,13 @@ function createTxItem (txData) {
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
+                            <div class="col text-break">
                                 ${txData.Destination}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <p class="text-muted m-0 text-center">${new Date(date)}</p>
+                        <p class="text-muted m-0 text-center">${new Date(date).toLocaleDateString()}</p>
                     </div>
                     <div class="col-md-2">
                         <div class="status">
@@ -83,22 +83,35 @@ function createTxItem (txData) {
                         </div>
                     </div>
                     <div class="col-md-3 p-2 text-center">
-                        <h5 class=" font-weight-bold m-0 ">${amount}</h5>
+                        <h5 class="m-0">${amount}</h5>
                     </div>
-                </div>`
+                </div>`)
     // append here ->
+
+    txItem.on("click", function(){
+        $(".m-from").text(txData.Account);
+        $(".m-to").text(txData.Destination)
+        $(".m-fee").text(txData.Fee);
+        $(".m-type").text(txData.TransactionType);
+        $(".m-sign-key").text(txData.SigningPubKey);
+        $(".m-hash").text(txData.hash);
+        $(".m-ledger-index").text(txData.ledger_index);
+        $(".m-amount").text(amount);
+        $(".m-date").text(new Date(date).toLocaleDateString());
+        $(".m-info").find("i").attr("class", checkIfIncomeOrExpenses(txData));
+
+        $("#tx-modal").modal()
+    })
+
     txHolder.append(txItem);
 
 }
 
 //Checks if destination is same as wallet address, if true amount is income ->
 function checkIfIncomeOrExpenses(txData){
-    if (holder == txData.Destination){
-        return '<i class="bi bi-arrow-down income"></i>';
-    } else {
-        return '<i class="bi bi-arrow-up expenses"></i>';
-    } 
+    return holder == txData.Destination ? "bi bi-arrow-down-circle-fill income" : "bi bi-arrow-up-circle-fill expenses"
 }
+
 // Add loader items as a loader for tx history ->
 function appendTxLoader () {
     txHolder.empty();

@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
     <title class="title">Richlist - Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/static/images/favicon1.png">
 </head>
 <body>
     <div class="container-fluid main-wrapper">
@@ -27,7 +27,7 @@
             <div class="col-md-2">
                 <div class="row h-100 p-2">
                     <div class="col menu-layout user-margin d-flex flex-column" align="center">
-                        <img class="p-3 mx-auto" width="150px" src="static/images/Ripple_logo.png">
+                        <img class="p-3 mx-auto" width="150px" src="static/images/richlist-logoMiddel.png">
                         <img class="user-image p-2 mx-auto" src="static/images/testUser.jpg">
                         <h6 class="text-muted">Welcome back,</h6>
                         <h4>Bram Jansen</h4>
@@ -110,7 +110,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <h4 id="walletAmount" class="display-4 text-center">-</h4>
+                                            <h4 id="walletAmount" style="font-weight: 600;" class="display-4 text-center">-</h4>
                                         </div>  
                                     </div>
                                     <div class="row">
@@ -138,7 +138,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 p-2">
+                            <div class="col-md-6 p-3">
                                 <div class="row">
                                     <div class="col">
                                         <h4 class="">Currency</h4>
@@ -175,9 +175,9 @@
                             <div class="col-md-12 transactions-col">
                                 <h4 class="">Recent transactions</h4>
                                 <p  class="text-muted">
-                                    All recent transaction from this account. <i class="bi bi-arrow-down income"></i>Incoming <i class="bi  bi-arrow-up expenses"></i>Outgoing
+                                    All recent transaction from this account. <i class="bi bi-arrow-down-circle-fill income"></i></i> Incoming <i class="bi bi-arrow-up-circle-fill expenses"></i> Outgoing
                                 </p>
-                                <div class="row text-center tx-indicator-spacing">
+                                <!-- <div class="row text-center tx-indicator-spacing">
                                     <div class="col-md-1">
                                         <p class="tx-indicator-item"><i class="bi bi-arrow-down-up"></i></p>
                                     </div>
@@ -196,8 +196,102 @@
                                     <div class="col-md-3">
                                         <p class="tx-indicator-item">Amount</p>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="tx-container">
+                                </div>
+                            </div>
+                            <div class="modal fade" id="tx-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="title-modal-tx">Transaction</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h4 class="m-info">
+                                                    Info 
+                                                    <i class=""></i>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h5 class="badge badge-primary m-0">From</h5>
+                                            </div>
+                                            <div class="col">
+                                                <p class="m-0"><small class="m-from text-break">dasdasdas</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h5 class="badge badge-primary m-0">To</h5>
+                                            </div>
+                                            <div class="col">
+                                                <p class="m-0"><small class="m-to text-break">dasdasdas</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h5 class="badge badge-primary m-0">Fee</h5>
+                                            </div>
+                                            <div class="col">
+                                                <p class="m-0"><small class="m-fee text-break">dasdasdas</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h5 class="badge badge-primary">Type</h5>
+                                            </div>
+                                            <div class="col">
+                                                <p class="m-0"><small class="m-type text-break">dasdasdas</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h5 class="badge badge-primary m-0">Sign key</h5>
+                                            </div>
+                                            <div class="col">
+                                                <p class="m-0"><small class="m-sign-key text-break">dasdasdas</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h5 class="badge badge-primary m-0">Hash</h5>
+                                            </div>
+                                            <div class="col">
+                                                <p class="m-0"><small class="m-hash text-break">dasdasdas</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h5 class="badge badge-primary m-0">Ledger index</h5>
+                                            </div>
+                                            <div class="col">
+                                                <p class="m-0"><small class="m-ledger-index text-break">dasdasdas</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="row m-1 tx-modal-item">
+                                            <div class="col">
+                                                <h5 class="badge badge-primary m-0">Amount</h5>
+                                            </div>
+                                            <div class="col">
+                                                <p class="m-0"><small class="m-amount text-break"><b>23455</b></small></p>
+                                            </div>
+                                        </div>
+                                        <p class="text-end">
+                                            <small class="text-muted m-date">
+                                                05-02-2023
+                                            </small>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
                                 </div>
                             </div>
                         </div>

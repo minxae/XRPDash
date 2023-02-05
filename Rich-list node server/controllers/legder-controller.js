@@ -95,14 +95,14 @@ async function getFileDate(){
 
 async function getRankInfoByAccount(req, res){
     let address = req.params.address;
-
+    let account = findAccountByAddress(address);
     if (allAccounts && allAccounts.length > 0){
         // get rank from accounts array
         res.send({
             rank_data: {
-                curRank: calculateRank(address),
+                curRank: account.rank,
                 AmountOfAccounts: allAccounts.length,
-                topPercentage: calculateTopPercentages(address)
+                topPercentage: calculateTopPercentages(account.account)
             }
         }) 
     } else {
@@ -113,36 +113,34 @@ async function getRankInfoByAccount(req, res){
     }   
 }
 
-function calculateTopPercentages(address){
+function calculateTopPercentages(account){
     let percentages = [0.1, 1, 5, 10, 40]
     for(i in percentages){
         let percentage = percentages[i];
-        if(balanceExistsInPercentage(percentage, findAccountBalanceByAddress(address))){
+        if(balanceExistsInPercentage(percentage, account["Balance"])){
             return percentage
         }
     }
     return "Beneath the " + percentages[percentages.length - 1] + "%"
 }
 
-function balanceExistsInPercentage(percentage, account){
+function balanceExistsInPercentage(percentage, balance){
     let percentagePos = Math.round((allAccounts.length / 100) * percentage);
     let percentageThreshold = allAccounts[percentagePos]
-    if(account.Balance >= percentageThreshold["Balance"]){
+    if(parseInt(balance) >= parseInt(percentageThreshold["Balance"])){
         return true
     }
 }
 
-function findAccountBalanceByAddress(address){
+function findAccountByAddress(address){
     for(i in allAccounts){
         if(allAccounts[i]["Account"] == address){
-            return allAccounts[i]["Balance"]
+            return {rank: i, account : allAccounts[i]};
         }
     }
 }
 
 function calculateRank(address){
-    
-    allAccounts.sort(utils.sortByNumeric)
     for(i in allAccounts){
         if(allAccounts[i].Account == address){
             return i;
@@ -172,6 +170,7 @@ async function readDataFromFile(filePath){
                 let accounts = JSON.parse(data);
                 if(accounts.length > 0){
                     allAccounts = accounts;
+                    allAccounts.sort(utils.sortByNumeric)
                     console.log("Done reading accounts from file");
                     accountsReadByServer = true;
                 }else {
@@ -207,12 +206,13 @@ function statusUpdate_1(req, res){
 }
  
 // Function that start at the start-up ->
-//readDataFromFile(path.join(__dirname, "../accounts/accounts.json"));
+
 
 module.exports = {
     setup,
     statusUpdate,
     getRankInfoByAccount,
     getTotalAccountsOnLedger,
-    cancelSetup
+    cancelSetup,
+    readDataFromFile
 };
