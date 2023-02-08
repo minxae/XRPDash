@@ -1,41 +1,4 @@
-body {
-    background-image: url("/static/images/middel2.png");
-    background-size: cover;
-    background-position: center;
-    font-family: 'Roboto',  sans-serif;
-}
-
-.wrapper {
-    height: 100vh;  
-}
-.credentials {
-    background-color: #ffffff;
-    color: #252525;
-    border: 1px solid #d4d4d4;
-    border-radius: 5px;
-}
-
-.btn-primary {
-    background-color: #ff2e63 !important;
-    border-color: #ff2e63;
-}
-
-.btn-primary-admin {
-    background-color: #252a34 !important;
-    border-color: #252a34 !important;
-    color: white !important;
-}
-
-.logo-image {
-    margin: auto;
-    display: flex;
-    width: 210px;
-    padding-bottom: 25px;
-}
-
-
-/* ANIMATIONS */
-.slide-in-top {
+ .slide-in-top {
 	-webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
@@ -43,6 +6,7 @@ body {
 	-webkit-animation: slide-out-top 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 	animation: slide-out-top 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
 }
+
 
 /* KEYFRAMES */
 @-webkit-keyframes slide-in-top {
@@ -93,4 +57,3 @@ body {
         opacity: 0;
     }
   }
-

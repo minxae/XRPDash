@@ -1,0 +1,23 @@
+.contact-card {
+    color: rgb(18 18 18);
+    background-color: #ffffff;
+    height: 100%;
+    border: 1px solid #d1d1d1;
+    border-radius: 6px;
+    
+    transition: 0.2s;
+    cursor: pointer;
+}
+.contact-card:hover{
+    filter: contrast(1);
+}
+
+.contact-card:hover .image {
+    margin-bottom: 20px;
+    filter: contrast(1);
+}
+
+.image {
+    transition: 0.2s;
+    filter: contrast(0);
+}

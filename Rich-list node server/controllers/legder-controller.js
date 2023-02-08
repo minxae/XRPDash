@@ -4,11 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const utils = require("../utils");
 
-const controller = new AbortController();
-const signal = controller.signal
-
 let allAccounts;
-let setupCanceled;
 
 let setupStatus = {
     status : {
@@ -26,47 +22,48 @@ let setupStatus = {
 }
 
 async function setup(req, res){
-    resetStatus()
-    // update all data from the ledger
-    // all accounts should be in one array
-    try {
-        res.send({
-            message : "Starting updating accounts...",
-            alertType : "success"
-        });
+    if(!setupStatus.status.t1_loadingAccount){
+        resetStatus();
         
-        setupStatus.status.t1_loadingAccount = true;
-        await xrpledger.loadXrpLedgerData({signal});
+        res.status(200).send({message : "Starting setup..."});
+        // update all data from the ledger
+        // all accounts should be in one array
+        try {
+            setupStatus.status.t1_loadingAccount = true;
+            await xrpledger.loadXrpLedgerData();
+    
+            setupStatus.status.t2_writingAccount = true;
+            await readDataFromFile(path.join(__dirname, "../accounts/accounts.json"));
+    
+            setupStatus.status.t3_done = true;
 
-        setupStatus.status.t2_writingAccount = true;
-        await readDataFromFile(path.join(__dirname, "../accounts/accounts.json"));
-
-        setupStatus.status.t3_done = true;
-        
-    }catch(e) {
-        if(e.name === "AbortError"){
-            setupCanceled = true;
-            res.send("Canceled setup");
+            resetStatus();
+        }catch(e) {
+            return;
         }
+    }else {
+        res.status(400).send({message : "Setup function is already running."})
     }
 }
 
 async function cancelSetup(req, res){
     if(setupStatus.status.t1_loadingAccount){
-        controller.abort();
+        if(xrpledger.getController()){
+            let c = xrpledger.getController();
+            c.abort();
+        }
         resetStatus();
-        res.send({
-            message : "Setup was canceled.",
+        res.status(200).send({
+            message : "Current Setup was canceled.",
             progress  : xrpledger.getPercentage(),
             alertType : "success"
         });
     }else {
-        res.send({
+        res.status(400).send({
             message : "The setup function is currently not running.",
             alertType : "danger"
         })
     }
-    
 }
 
 // Websocket function 
@@ -90,12 +87,13 @@ function resetStatus(){
 
 async function getFileDate(){
     let stats = await fs.promises.stat(path.join(__dirname, "../accounts/accounts.json"));
-    return stats.ctime
+    return new Date(stats.ctime);
 }
 
 async function getRankInfoByAccount(req, res){
     let address = req.params.address;
     let account = findAccountByAddress(address);
+    
     if (allAccounts && allAccounts.length > 0){
         // get rank from accounts array
         res.send({
@@ -114,11 +112,11 @@ async function getRankInfoByAccount(req, res){
 }
 
 function calculateTopPercentages(account){
-    let percentages = [0.1, 1, 5, 10, 40]
+    let percentages = [0.1, 0.3, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 5, 10, 40]
     for(i in percentages){
         let percentage = percentages[i];
         if(balanceExistsInPercentage(percentage, account["Balance"])){
-            return percentage
+            return percentage + "%"
         }
     }
     return "Beneath the " + percentages[percentages.length - 1] + "%"
@@ -184,29 +182,6 @@ async function readDataFromFile(filePath){
         console.log(err);
     }
 }
-
-function statusUpdate_1(req, res){
-    if(accountsLoaded && accountsReadByServer){
-        res.status(200).send({
-            message: "Accounts are loaded and read by server and ready to be distributed to users",
-            status : true,
-            accountsLoaded: allAccounts.length
-        })
-    }else if(startedLoading) {
-        res.status(400).send({
-            message: "Reading accounts from the XRP ledger...",
-            loading : true
-        });
-    }else {
-        res.status(400).send({
-            message: "Accounts are not loaded and read by the server yet, users can not get there rank yet.",
-            status : false
-        });
-    }
-}
- 
-// Function that start at the start-up ->
-
 
 module.exports = {
     setup,

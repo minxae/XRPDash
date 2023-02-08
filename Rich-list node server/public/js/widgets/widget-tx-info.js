@@ -89,6 +89,7 @@ function createTxItem (txData) {
     // append here ->
 
     txItem.on("click", function(){
+        $(".m-currency").text(currency);
         $(".m-from").text(txData.Account);
         $(".m-to").text(txData.Destination)
         $(".m-fee").text(txData.Fee);

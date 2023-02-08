@@ -3,19 +3,22 @@ const MongoClient = require('mongodb').MongoClient;
 const utils = require("../utils");
 const fs = require("fs");
 const path = require("path");
-const rippleBinary = require("ripple-binary-codec");
-
+const rippleBinary = require("ripple-binary-codec")
+let controller;
 const baseUrl = "https://s2.ripple.com:51234/";
 
 let percentage = 0;
 let loadedAccounts = 0;
 
 // THIS PROCESS WILL TAKE A LONG TIME DONT CALL THIS FUNCTION AT ANY MOMENT!!! ->
-const loadXrpLedgerData = async ({signal}) => {
+const loadXrpLedgerData = async () => {
+    controller = new AbortController();
+    let signal = controller.signal;
+
     let totalAccountsOnLedger = 4300000;
     let ALLACCOUNTS = [];
-
     let marker;
+
     let data = {
         "method": "ledger_data",
         "params": [
@@ -48,6 +51,8 @@ const loadXrpLedgerData = async ({signal}) => {
         percentage = Math.round((ALLACCOUNTS.length * 100) / totalAccountsOnLedger);
         loadedAccounts = ALLACCOUNTS.length
 
+        console.log(ALLACCOUNTS.length)
+
     } while(marker)
 
     //sort array by balance
@@ -56,11 +61,8 @@ const loadXrpLedgerData = async ({signal}) => {
 
     //Write data to accounts.json file
     console.log("Writing data to file....")
-    try {
-        writeArrayToFile(ALLACCOUNTS);
-    } catch(err) {
-        console.log(err);
-    }
+
+    writeArrayToFile(ALLACCOUNTS);
 
     console.log("done");
 }
@@ -74,11 +76,14 @@ function getLoadedAccounts(){
 }
 
 function setPercentage(amount){
-    percentage = amount
+    percentage = amount;
 }
 
 function setLoadedAccounts(amount){
-    loadedAccounts = amount
+    loadedAccounts = amount;
+}
+function getController(){
+    return controller;
 }
 
 function cancelSetup() {
@@ -125,7 +130,6 @@ async function writeArrayToFile(array){
                 if(err){
                    throw err;
                 }
-    
             });
         })
     }else {
@@ -137,15 +141,12 @@ async function writeArrayToFile(array){
                 if(err){
                    throw err;
                 }
-    
             });
         });
-        
     } 
 }
 
 const getAccountInformation = async (address) =>{
-    
     let data = {
         "method": "account_info",
         "params": [
@@ -174,7 +175,6 @@ const getAccountInformation = async (address) =>{
 
 // Get all transaction history based on transactionType : "Payment"
 async function getTxInformation(address){
-
     let txHistory = [];
     let marker;
 
@@ -231,7 +231,6 @@ async function getTxInformation(address){
 
 // Gets all holdings by an account excl XRP
 async function getCurrencies(address){
-
     let data = {
         "method": "account_currencies",
         "params": [
@@ -286,9 +285,7 @@ function getCurrenciesName(currencyString){
 
         case "4254435800000000000000000000000000000000":
             return "BTCX"
-
     }
-
     return "unknown"
 }
 
@@ -301,6 +298,7 @@ module.exports = {
     getLoadedAccounts,
     getPercentage,
     setPercentage,
-    setLoadedAccounts
+    setLoadedAccounts,
+    getController
 };
 

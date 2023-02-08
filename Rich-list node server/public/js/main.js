@@ -17,11 +17,8 @@ $(async function() {
 
 // Refresh all data on dashboard
 $("#w_1").on("click", async function(){
-    let isValid = await apiHelper.walletCheck(address);
-    if(address && isValid){
+    if(address){
         widgets.setAllData(address);
-    }else {
-        utils.redirectToPage("login");
     }
      // Set all dashboard data @param : wallet address out of the session or cookie ->
 });

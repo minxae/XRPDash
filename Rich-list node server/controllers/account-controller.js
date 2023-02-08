@@ -15,7 +15,6 @@ async function getAllAccountInfo(req, res){
     }else {
         res.status(400).send({message: "No wallet address given to check on the ledger"});
     }
-    
 }
 
 async function isWalletValid(req, res){

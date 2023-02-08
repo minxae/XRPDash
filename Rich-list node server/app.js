@@ -1,5 +1,5 @@
 const express = require("express");
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const app = express();
 const path = require("path");
 const server = require('http').createServer(app)
@@ -8,14 +8,12 @@ const middelware = require("./middleware/auth.js")
 const cookieParser = require("cookie-parser")
 const Websocket = require('ws');
 const wss = new Websocket.Server({server:server})
-
-// xrp ledger
-
+// xrp ledger ->
 const xrpLedger = require("./controllers/legder-controller")
 
-//Firebase
+// Firebase ->
 const admin = require("firebase-admin")
-const credentials = require(path.join(__dirname, "./serviceAccountKey"))
+const credentials = require(path.join(__dirname, "./serviceAccountKey.json"))
 
 admin.initializeApp({
     credential : admin.credential.cert(credentials)
@@ -26,7 +24,6 @@ const accountRouter = require("./routes/account-route");
 const ledgerRouter = require("./routes/ledger-route");
 const txRouter = require("./routes/tx-route");
 const adminRouter = require("./routes/admin-route");
-const { database } = require("firebase-admin");
 
 app.use(express.json());
 app.use('/static', express.static(path.join(__dirname, 'public')))
@@ -39,6 +36,9 @@ app.use("/ledger",  ledgerRouter);
 app.use("/tx", txRouter);
 app.use("/admin",adminRouter)
 
+// app.get("/*", function(req, res){
+//     res.sendFile(path.join(__dirname, "/public/html/user-login.html"));
+// })
 app.get("/dashboard", function(req, res){
     res.sendFile(path.join(__dirname, "/public/html/index.html"));
 })
@@ -52,7 +52,7 @@ app.get("/contact", function(req, res){
     res.sendFile(path.join(__dirname, "/public/html/contact.html"));
 })
 app.get("/login", function(req, res){
-    res.sendFile(path.join(__dirname, "/public/html/login.html"));
+    res.sendFile(path.join(__dirname, "/public/html/user-login.html"));
 })
 app.get("/admin", middelware.isAdmin, function(req, res){
     res.sendFile(path.join(__dirname, "/public/html/admin-dashboard.html"))
@@ -63,7 +63,7 @@ wss.on("connection", async function connection(ws){
     setInterval( async () => {
         let data = await xrpLedger.statusUpdate();
         ws.send(JSON.stringify(data))
-    },1000)
+    },2000)
 })
 
 //loading accounts into array from json file ->

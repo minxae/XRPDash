@@ -20,7 +20,7 @@ $(".searchAddress").on("click", async function(){
             alert.show();
             alert.removeClass("alert-warning");
             alert.addClass("alert-danger");
-            alert.text("Wallet address was not found, perhaps a typo?");
+            alert.text("Address not found");
         }
 
     } else {

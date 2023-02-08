@@ -31,7 +31,7 @@ export async function setData(address){
     let amountOfAccounts = rankInfo.rank_data.AmountOfAccounts;
 
     $("#address").text(accountAddress);
-    $("#walletAmount").text("#"+ decimals(currentRank));
+    $("#rank").text("#"+ decimals(currentRank));
     $("#valuta").html("Out of <b class='total-accounts'>" + decimals(amountOfAccounts.toString()) + " </b>accounts.");
     $("#XRP").text(balance);
     $("#percentage").text(topPercentage)
@@ -40,6 +40,14 @@ export async function setData(address){
 function decimals(number){
     return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+$("#rank").on("click",  function(){
+    $(this).toggleClass("blurred");
+})
+
+$("#XRP").on("click",  function(){
+    $(this).toggleClass("blurred");
+})
 
 // refreshes all data from the per made div ->
 $("#refresh-data-btn").on("click", () => {

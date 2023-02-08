@@ -25,7 +25,7 @@ function login(){
     
         $.cookie("token", token)
     
-        window.location =  "http://localhost:8080/admin"
+        window.location = "http://localhost:8080/admin"
     })
     .catch((error)  => {
         $(".alert").show()

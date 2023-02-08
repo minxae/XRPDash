@@ -1,0 +1,39 @@
+body {
+    background-image: url("/static/images/middel2.png");
+    background-size: cover;
+    background-position: center;
+    font-family: 'Roboto',  sans-serif;
+}
+
+.wrapper {
+    height: 100vh;  
+}
+.credentials {
+    background-color: #ffffff;
+    color: #252525;
+    border: 1px solid #d4d4d4;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #ff2e63 !important;
+    border-color: #ff2e63;
+}
+
+.btn-primary-admin {
+    background-color: #252a34 !important;
+    border-color: #252a34 !important;
+    color: white !important;
+}
+
+.logo-image {
+    margin: auto;
+    display: flex;
+    width: 210px;
+    padding-bottom: 25px;
+}
+
+
+/* ANIMATIONS */
+
+

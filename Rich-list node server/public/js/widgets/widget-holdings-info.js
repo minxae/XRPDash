@@ -12,7 +12,15 @@ export async function setData(address){
         appendData(holdings.data)
     }else{
         $(".currency-list").empty()
-        $(".currency-list").append(`<h4>${holdings.message} <i class="bi bi-emoji-frown-fill"></i></h4>`)
+        $(".currency-list").append(`
+        <div class="col text-center p-4">
+            <h4>
+                ${holdings.message} 
+                <i style="color: #ff2e63" class="bi bi-emoji-frown-fill">
+                </i>
+            </h4>
+        </div>
+        `)
     }
 }
 
@@ -28,9 +36,7 @@ function createHoldingsItem(currency){
     return `
     <div class="col p-1 accent-currency-card">
         <div class="p-2 h-100 currency-card">
-            <p class="display-4">${currency}</p>
-            <p class="text-muted">Amount</p>
-            <p class="lead">0.230</p>
+            <h4 class="display-5">${currency}</h4>
         </div>
     </div>
     `
